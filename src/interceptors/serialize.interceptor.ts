@@ -8,8 +8,14 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {plainToClass} from 'class-transformer';
 
+
+interface ClassConstructor {
+    // this is a class in TS
+    new(...args: any[]): {};
+}
+
 // decorators are plain functions
-export function Serialize(dto: any) {
+export function Serialize(dto: ClassConstructor) {
     // same as
     // @UseInterceptors(new SerializeInterceptor(UserDto))
     return UseInterceptors(new SerializeInterceptor(dto))
