@@ -19,9 +19,13 @@ import {
 } from '../interceptors/serialize.interceptor';
 import {UserDto} from './dto/user.dto';
 import {AuthService} from './auth.service';
+import {CurrentUser} from "./decorators/current-user.decorator";
+import {CurrentUserInterceptor} from "./interceptors/current-user.interceptor";
+import {User} from "./entities/user.entity";
 
-@Serialize(UserDto)
 @Controller('auth')
+@Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UserController {
     constructor(
         private readonly userService: UserService,
@@ -40,8 +44,8 @@ export class UserController {
     // }
 
     @Get('/me')
-    async myUser(@Session() session: any) {
-        const user = await this.userService.findOne(session.userId);
+    async myUser(@CurrentUser() user: User) {
+        // const user = await this.userService.findOne(session.userId);
         // session.userId = user.id;
         return user;
     }
