@@ -8,7 +8,7 @@ import {
     Delete,
     Query,
     UseInterceptors,
-    Session,
+    Session, UseGuards,
 } from '@nestjs/common';
 import {UserService} from './user.service';
 import {CreateUserDto} from './dto/create-user.dto';
@@ -22,10 +22,11 @@ import {AuthService} from './auth.service';
 import {CurrentUser} from "./decorators/current-user.decorator";
 import {CurrentUserInterceptor} from "./interceptors/current-user.interceptor";
 import {User} from "./entities/user.entity";
+import {AuthGuard} from "../guards/auth.gaurd";
 
 @Controller('auth')
 @Serialize(UserDto)
-@UseInterceptors(CurrentUserInterceptor)
+// @UseInterceptors(CurrentUserInterceptor)
 export class UserController {
     constructor(
         private readonly userService: UserService,
@@ -43,6 +44,7 @@ export class UserController {
     //     return session.colour;
     // }
 
+    @UseGuards(AuthGuard)
     @Get('/me')
     async myUser(@CurrentUser() user: User) {
         // const user = await this.userService.findOne(session.userId);
