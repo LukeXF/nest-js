@@ -9,7 +9,6 @@ import {ComputerModule} from './computer/computer.module';
 import {CpuModule} from './cpu/cpu.module';
 import {DiskModule} from './disk/disk.module';
 import {PowerModule} from './power/power.module';
-import {UsersModule} from './users/users.module';
 import {ReportsModule} from './reports/reports.module';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {User} from './user/entities/user.entity';
@@ -31,7 +30,7 @@ import {Report} from './reports/report.entity';
         CpuModule,
         DiskModule,
         PowerModule,
-        UsersModule,
+        UserModule,
         ReportsModule,
     ],
     controllers: [AppController],
