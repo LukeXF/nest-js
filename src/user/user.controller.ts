@@ -76,8 +76,8 @@ export class UserController {
         return this.userService.find(email);
     }
 
-    @Get('/:id')
     // @UseInterceptors(new SerializeInterceptor(UserDto))
+    @Get('/:id')
     findUser(@Param('id') id: string) {
         return this.userService.findOne(parseInt(id));
     }
